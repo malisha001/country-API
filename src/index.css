@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+/* Custom styles */
+body {
+  @apply antialiased text-gray-800;
+}
+
+/* Smooth transitions for interactive elements */
+button, a, input, select {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-blue-500;
+}
