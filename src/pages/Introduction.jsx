@@ -44,7 +44,7 @@ const WorldGlobe = ({ scrollProgress }) => {
 
 const World3DView = ({ scrollYProgress }) => {
   // Slower horizontal movement
-  const x = useTransform(scrollYProgress, [0, 0.33], ['-30%', '30%']);
+  const x = useTransform(scrollYProgress, [0, 0.33], ['0%', '0%']); // Changed to 0% to keep centered
   // More gradual vertical movement
   const y = useTransform(scrollYProgress, [0, 0.33], [0, -150]);
   // Slower scale changes
@@ -53,19 +53,19 @@ const World3DView = ({ scrollYProgress }) => {
   const opacity = useTransform(scrollYProgress, [0.25, 0.33], [1, 0.2]);
   // Longer title visibility
   const titleOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  // Add slight right offset for title
-  const titleX = useTransform(scrollYProgress, [0, 0.33], ['5%', '5%']);
+  // Center title by removing x offset
+  const titleX = useTransform(scrollYProgress, [0, 0.33], ['0%', '0%']);
 
   return (
     <motion.div 
-      className="h-screen w-full fixed top-0 left-0 pointer-events-none"
+      className="h-screen w-full fixed top-0 left-0 pointer-events-none flex items-center justify-center" // Added flex centering
       style={{ x, y, scale, opacity }}
     >
       <motion.div 
         className="absolute inset-0 flex flex-col items-center justify-center z-10"
         style={{ 
           opacity: titleOpacity,
-          x: titleX // Added this line for right offset
+          x: titleX
         }}
       >
         <h1 className="text-5xl md:text-7xl font-bold text-white drop-shadow-lg text-center">
@@ -76,7 +76,10 @@ const World3DView = ({ scrollYProgress }) => {
         </p>
       </motion.div>
       
-      <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
+      <Canvas 
+        camera={{ position: [0, 0, 8], fov: 45 }}
+        className="w-full h-full" // Ensure canvas fills container
+      >
         <OrbitControls 
           enableZoom={false}
           enablePan={false}
